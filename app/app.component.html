@@ -1,0 +1,43 @@
+<div id="data-grid-demo">
+  <dx-data-grid
+    id="gridContainer"
+    keyExpr="ID"
+    [dataSource]="filteredDataTypes"
+    width="800"
+    height="600"
+    (onContentReady)="filterName($event)"
+  >
+    <dxo-header-filter
+      [visible]="true"
+      [allowSearch]="true"
+      [dataSource]="datatypes"
+    ></dxo-header-filter>
+    <dxo-editing
+      mode="popup"
+      [allowUpdating]="true"
+      [allowDeleting]="true"
+      [allowAdding]="true"
+    >
+      <dxo-form colCount="1"></dxo-form>
+    </dxo-editing>
+    <dxi-column dataField="ID"></dxi-column>
+    <dxi-column dataField="Name"></dxi-column>
+    <!-- <dxi-column dataField="PropertyID"></dxi-column> -->
+    <dxi-column
+      caption="Properties"
+      dataField="PropertyIDs"
+      dataType="string"
+      [calculateFilterExpression]="calculateFilterExpression"
+      cellTemplate="propertiesCellTemplate"
+    >
+      <dxo-header-filter
+        [dataSource]="objectsForGridTree"
+        [groupInterval]="['ID', 'ID']"
+      ></dxo-header-filter>
+      <div *dxTemplate="let cell of 'propertiesCellTemplate'">
+        {{ getPropertiesText(cell.value) }}
+      </div>
+    </dxi-column>
+  </dx-data-grid>
+  <div (click)="filterName()">Filter</div>
+</div>
