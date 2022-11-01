@@ -76,18 +76,16 @@ export class AppComponent {
     };
   }
 
-  async filterName() {
-    //console.log(this.headerFilter);
-    // if (this.b_filter === false) {
-    //   console.log(await this.dataGrid.columns);
-    //   this.filteredDataTypes = new Array<DataType>();
-    //   this.filteredDataTypes.push(
-    //     this.datatypes.find((x) => x.Name === 'dataType P1.1')
-    //   );
-    //   this.filterName_EE.emit(null);
-    //   this.b_filter = true;
-    //}
+  calculateFilterExpression(filterValue, selectedFilterOperation) {
+    return function ({ Name }) {
+      return Name.includes(filterValue);
+    };
   }
+  filterName() {
+    console.log(this.dataGrid.columns);
+    this.filterName_EE.emit(null);
+  }
+  
   getPropertiesText(propertyIDs: number[]): string {
     return propertyIDs
       .map((propertyID) => this.properties.find((x) => x.ID === propertyID))

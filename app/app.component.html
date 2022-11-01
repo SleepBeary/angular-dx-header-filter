@@ -5,12 +5,10 @@
     [dataSource]="filteredDataTypes"
     width="800"
     height="600"
-    (onContentReady)="filterName($event)"
   >
     <dxo-header-filter
       [visible]="true"
       [allowSearch]="true"
-      [dataSource]="datatypes"
     ></dxo-header-filter>
     <dxo-editing
       mode="popup"
@@ -21,13 +19,16 @@
       <dxo-form colCount="1"></dxo-form>
     </dxo-editing>
     <dxi-column dataField="ID"></dxi-column>
-    <dxi-column dataField="Name"></dxi-column>
+    <dxi-column
+      dataField="Name"
+      searchMode=">"
+      [calculateFilterExpression]="calculateFilterExpression"
+    ></dxi-column>
     <!-- <dxi-column dataField="PropertyID"></dxi-column> -->
     <dxi-column
       caption="Properties"
       dataField="PropertyIDs"
       dataType="string"
-      [calculateFilterExpression]="calculateFilterExpression"
       cellTemplate="propertiesCellTemplate"
     >
       <dxo-header-filter
@@ -39,5 +40,7 @@
       </div>
     </dxi-column>
   </dx-data-grid>
-  <div (click)="filterName()">Filter</div>
+  <div>
+    <button (click)="filterName()">Filter</button>
+  </div>
 </div>
