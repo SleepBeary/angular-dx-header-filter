@@ -7,6 +7,7 @@
     height="600"
   >
     <dxo-header-filter
+      ng-keydown="Ok"
       [visible]="true"
       [allowSearch]="true"
     ></dxo-header-filter>
@@ -21,7 +22,7 @@
     <dxi-column dataField="ID"></dxi-column>
     <dxi-column
       dataField="Name"
-      searchMode=">"
+      allowSearch="true"
       [calculateFilterExpression]="calculateFilterExpression"
     ></dxi-column>
     <!-- <dxi-column dataField="PropertyID"></dxi-column> -->

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { EventListener } from '@angular/core/src/debug/debug_node';
 import { forEach } from '@angular/router/src/utils/collection';
 import { DxDataGridComponent } from 'devextreme-angular/ui/data-grid';
 import { DxoHeaderFilterComponent } from 'devextreme-angular/ui/nested/header-filter';
@@ -19,7 +20,6 @@ import {
 })
 export class AppComponent {
   @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
-  @ViewChild(DxoHeaderFilterComponent) headerFilter: DxoHeaderFilterComponent;
   @Output() filterName_EE: EventEmitter<any> = new EventEmitter();
   dataSource: Statement[];
   groups: Group[];
@@ -82,10 +82,11 @@ export class AppComponent {
     };
   }
   filterName() {
-    console.log(this.dataGrid.columns);
-    this.filterName_EE.emit(null);
+    this.dataGrid.instance.searchByText('P1.1');
+    this.dataGrid.headerFilterChange.emit();
+    console.log(this.dataGrid);
   }
-  
+
   getPropertiesText(propertyIDs: number[]): string {
     return propertyIDs
       .map((propertyID) => this.properties.find((x) => x.ID === propertyID))
